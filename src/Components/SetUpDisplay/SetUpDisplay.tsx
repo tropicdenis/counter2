@@ -22,7 +22,7 @@ function SetUpDisplay(props: SetUpDisplayPropsType) {
 
     return (
         <div className={(props.startValue < 0) ||
-        (props.maxValue === props.startValue) ? s.displayRed : s.displayBlack}>
+        (props.maxValue <= props.startValue) ? s.displayRed : s.displayBlack}>
             max value:
             <input type={"number"}
                    name={"max value"}

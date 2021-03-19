@@ -5,7 +5,6 @@ type DisplayPropsType = {
     clickCounter: number
     maxValue: number
     startValue: number
-    onEdit: boolean
 }
 
 function Display(props: DisplayPropsType) {

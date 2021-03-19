@@ -41,7 +41,6 @@ function Counter(props: CounterPropsType) {
                 <Display clickCounter={props.clickCounter}
                          maxValue={props.maxValue}
                          startValue={props.startValue}
-                         onEdit={props.onEdit}
                 />
                 <Buttons incClickCounter={props.incClickCounter}
                          resetClickCounter={props.resetClickCounter}
