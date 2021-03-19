@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./Components/Counter/Counter";
-import SetUp from "./Components/SetUp/SetUp";
-
 
 function App() {
 
@@ -33,8 +31,6 @@ function App() {
         }
     }, [])
 
-
-
     useEffect(() => {
         localStorage.setItem('startValue', JSON.stringify(startValue))
     }, [startValue])
@@ -56,13 +52,11 @@ function App() {
 
     function maxValueChange(newMaxValue: number) {
         maxValue = newMaxValue
-        setOnEdit(true)
         setMaxValue(maxValue)
     }
 
     function startValueChange(newStartValue: number) {
         startValue = newStartValue
-        setOnEdit(true)
         setStartValue(startValue)
     }
 
@@ -74,24 +68,22 @@ function App() {
         setOnEdit(false)
         setClickCounter(startValue)
     }
+    function editModeSwitcher() {
+        setOnEdit(true)
+    }
 
     return (
         <div className="App">
-            <SetUp setClickCounter={setCounter}
-                   clickCounter={clickCounter}
-                   maxValue={maxValue}
-                   startValue={startValue}
-                   maxValueChange={maxValueChange}
-                   startValueChange={startValueChange}
-                   onEdit={onEdit}
-
-            />
             <Counter incClickCounter={incClickCounter}
                      resetClickCounter={resetClickCounter}
                      clickCounter={clickCounter}
                      maxValue={maxValue}
                      startValue={startValue}
                      onEdit={onEdit}
+                     setClickCounter={setCounter}
+                     maxValueChange={maxValueChange}
+                     startValueChange={startValueChange}
+                     editModeSwitcher={editModeSwitcher}
             />
         </div>
     );
