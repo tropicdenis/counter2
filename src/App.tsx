@@ -1,8 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./Components/Counter/Counter";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppStateType} from "./bll/store";
+import {
+    editModeSwitcherAC,
+    incClickCounterAC,
+    maxValueChangeAC,
+    resetClickCounterAC,
+    setCounterAC,
+    startValueChangeAC
+} from "./bll/counter-reducer";
 
 function App() {
 
@@ -11,72 +19,25 @@ function App() {
     const maxValue = useSelector<AppStateType, number>(state => state.counter.maxValue);
     const onEdit = useSelector<AppStateType, boolean>(state => state.counter.onEdit);
 
-    // let [startValue, setStartValue] = useState(0)
-    // let [maxValue, setMaxValue] = useState(0)
-    // let [clickCounter, setClickCounter] = useState<number>(0);
-    // let [onEdit, setOnEdit] = useState(false)
-    //
-    // useEffect(() => {
-    //     let clickCounterAsString = localStorage.getItem('clickCounter')
-    //     if (clickCounterAsString) {
-    //         let newClickCounter = JSON.parse(clickCounterAsString)
-    //         setClickCounter(newClickCounter)
-    //     }
-    // }, [])
-    // useEffect(() => {
-    //     let maxValueAsString = localStorage.getItem('maxValue')
-    //     if (maxValueAsString) {
-    //         let newMaxValue = JSON.parse(maxValueAsString)
-    //         setMaxValue(newMaxValue)
-    //     }
-    // }, [])
-    // useEffect(() => {
-    //     let startValueAsString = localStorage.getItem('startValue')
-    //     if (startValueAsString) {
-    //         let newStartValue = JSON.parse(startValueAsString)
-    //         setStartValue(newStartValue)
-    //     }
-    // }, [])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('startValue', JSON.stringify(startValue))
-    // }, [startValue])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('maxValue', JSON.stringify(maxValue))
-    // }, [maxValue])
-    //
-    // useEffect(() => {
-    //     localStorage.setItem('clickCounter', JSON.stringify(clickCounter))
-    // }, [clickCounter])
+    const dispatch = useDispatch()
 
-    function incClickCounter() {
-        if (clickCounter < maxValue) {
-            const newClickCounter = clickCounter + 1
-            setClickCounter(newClickCounter)
-        }
+    const incClickCounter = () => {
+        dispatch(incClickCounterAC())
     }
-
-    function maxValueChange(newMaxValue: number) {
-        maxValue = newMaxValue
-        setMaxValue(maxValue)
+    const startValueChange = (newStartValue: number) => {
+        dispatch(startValueChangeAC(newStartValue))
     }
-
-    function startValueChange(newStartValue: number) {
-        startValue = newStartValue
-        setStartValue(startValue)
+    const maxValueChange = (newMaxValue: number) => {
+        dispatch(maxValueChangeAC(newMaxValue))
     }
-
-    function resetClickCounter() {
-        setClickCounter(startValue)
+    const resetClickCounter = () => {
+        dispatch(resetClickCounterAC())
     }
-
-    function setCounter() {
-        setOnEdit(false)
-        setClickCounter(startValue)
+    const setCounter = () => {
+        dispatch(setCounterAC())
     }
-    function editModeSwitcher() {
-        setOnEdit(true)
+    const editModeSwitcher = () => {
+        dispatch(editModeSwitcherAC())
     }
 
     return (
